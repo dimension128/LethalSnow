@@ -1,4 +1,4 @@
-package com.foocraft;
+package com.foocraft.LeathalSnow;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;

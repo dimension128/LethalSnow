@@ -3,7 +3,7 @@
 * License: Give credit if you modify and/or redistribute any of my code.
 */
 
-package com.foocraft;
+package com.foocraft.LeathalSnow;
 
 import java.util.Random;
 import java.util.logging.Logger;
@@ -13,7 +13,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -54,8 +53,9 @@ public class LethalSnow extends JavaPlugin{
 		}
 		loadFromConfig();
 		PluginManager pm = this.getServer().getPluginManager();
-		pm.registerEvent(Event.Type.ENTITY_DAMAGE, eListener, Event.Priority.Normal, this);
-		pm.registerEvent(Event.Type.ENTITY_DEATH, eListener, Event.Priority.Normal, this);
+		//pm.registerEvent(Event.Type.ENTITY_DAMAGE, eListener, Event.Priority.Normal, this);
+		//pm.registerEvent(Event.Type.ENTITY_DEATH, eListener, Event.Priority.Normal, this);
+		pm.registerEvents(this.eListener, this);
 		//pm.registerEvent(Event.Type.PLAYER_MOVE, pListener, Event.Priority.Normal, this);
 		sched_int();
 		logMessage("Version " + this.getDescription().getVersion() + " enabled.");

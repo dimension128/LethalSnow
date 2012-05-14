@@ -2,26 +2,32 @@
 * @author Jason Keeslar "LordJason"
 * License: Give credit if you modify and/or redistribute any of my code.
 */
-package com.foocraft;
+package com.foocraft.LeathalSnow;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 
-public class LsEntityListener extends EntityListener{
+//public class LsEntityListener extends EntityListener{
+public class LsEntityListener implements Listener{
+	
 	public static LethalSnow plugin;
 	
+
 	public LsEntityListener(LethalSnow instance) {
 		plugin = instance;
 	}
 	
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityDamage(EntityDamageEvent The_Event){
 		if(!The_Event.isCancelled() && The_Event.getCause() == DamageCause.PROJECTILE && The_Event instanceof EntityDamageByEntityEvent){
 			EntityDamageByEntityEvent edbe = (EntityDamageByEntityEvent)The_Event;

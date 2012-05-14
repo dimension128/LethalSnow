@@ -1,0 +1,3 @@
+This plugin allows snowballs to do a configurable amount of damage. Either a random amount between two values or a direct static amount.
+You can configure many values in the plugin.yml file that this plugin generates for your server.
+However, all/most values are modifiable via in-game commands.
