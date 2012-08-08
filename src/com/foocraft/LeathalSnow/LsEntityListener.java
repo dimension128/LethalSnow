@@ -50,8 +50,9 @@ public class LsEntityListener implements Listener{
 			}
 		}
 	}
-	
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityDeath(EntityDeathEvent e){
+		//plugin.logMessage("Death event: " + e.getEntity().getClass().getName());
 		if((e.getEntity().getClass().getName().equals("org.bukkit.craftbukkit.entity.CraftSnowman")) && plugin.maxSeedDrop > 0){
 			Block block = e.getEntity().getLocation().getBlock();
 			block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.PUMPKIN_SEEDS, plugin.rand.nextInt(plugin.maxSeedDrop) + 1));

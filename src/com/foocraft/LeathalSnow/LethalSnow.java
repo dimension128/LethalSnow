@@ -40,25 +40,30 @@ public class LethalSnow extends JavaPlugin{
 
 	@Override
 	public void onEnable() {
-		PluginDescriptionFile pdFile = this.getDescription();
-		config = getConfig();
-		Float ConfigVersion = Float.parseFloat(config.getString("System.Version", "0"));
-		Float PlugVersion = Float.parseFloat(pdFile.getVersion());
-		SHOW_DEBUG = this.getConfig().getBoolean("System.DebugMessages", false);
-		if(SHOW_DEBUG){logMessage("Config file, Version " + ConfigVersion);}
-		if(ConfigVersion < PlugVersion && ConfigVersion < 0.25){
-			logMessage("Config file NOT found or out of date.");
-			write(DamageMin, DamageMax, DamageChance, maxSeedDrop, HURT_PLAYER, HURT_MOBS, ExhaustionMultiplier, SHOW_DEBUG);
-			logMessage("Default config file created.");
+		try{
+			PluginDescriptionFile pdFile = this.getDescription();
+			config = getConfig();
+			Float ConfigVersion = Float.parseFloat(config.getString("System.Version", "0"));
+			Float PlugVersion = Float.parseFloat(pdFile.getVersion());
+			SHOW_DEBUG = this.getConfig().getBoolean("System.DebugMessages", false);
+			if(SHOW_DEBUG){logMessage("Config file, Version " + ConfigVersion);}
+			if(ConfigVersion < PlugVersion && ConfigVersion < 0.25){
+				logMessage("Config file NOT found or out of date.");
+				write(DamageMin, DamageMax, DamageChance, maxSeedDrop, HURT_PLAYER, HURT_MOBS, ExhaustionMultiplier, SHOW_DEBUG);
+				logMessage("Default config file created.");
+			}
+			loadFromConfig();
+			PluginManager pm = this.getServer().getPluginManager();
+			//pm.registerEvent(Event.Type.ENTITY_DAMAGE, eListener, Event.Priority.Normal, this);
+			//pm.registerEvent(Event.Type.ENTITY_DEATH, eListener, Event.Priority.Normal, this);
+			pm.registerEvents(this.eListener, this);
+			//pm.registerEvent(Event.Type.PLAYER_MOVE, pListener, Event.Priority.Normal, this);
+			sched_int();
+			logMessage("Version " + this.getDescription().getVersion() + " enabled.");
 		}
-		loadFromConfig();
-		PluginManager pm = this.getServer().getPluginManager();
-		//pm.registerEvent(Event.Type.ENTITY_DAMAGE, eListener, Event.Priority.Normal, this);
-		//pm.registerEvent(Event.Type.ENTITY_DEATH, eListener, Event.Priority.Normal, this);
-		pm.registerEvents(this.eListener, this);
-		//pm.registerEvent(Event.Type.PLAYER_MOVE, pListener, Event.Priority.Normal, this);
-		sched_int();
-		logMessage("Version " + this.getDescription().getVersion() + " enabled.");
+		catch (Exception e){
+			logMessage("Version " + this.getDescription().getVersion() + e + " .");
+		}
 	}
 	
 	public void sched_int(){
@@ -70,7 +75,7 @@ public class LethalSnow extends JavaPlugin{
 		}
 	}
 	
-	public int clampInt(int i){
+	public int clampInt(int i){ // This just takes an int, and clamps it to, between 0 and 100
 		if(i < 0){i = 0;}
 		else if(i > 100){i=100;}
 		return i;
@@ -83,9 +88,9 @@ public class LethalSnow extends JavaPlugin{
 		this.getConfig().set("SnowBall.DamageMin", clampInt(min));
 		this.getConfig().set("SnowBall.DamageMax", clampInt(max));
 		this.getConfig().set("SnowBall.DamageChance", clampInt(chance));
-		this.getConfig().set("SnowMan.MaxSeedDrop", clampInt(seeds));
 		this.getConfig().set("SnowBall.DamagePlayer", Damageplayer);
 		this.getConfig().set("SnowBall.DamageMobs", Dmobs);
+		this.getConfig().set("SnowMan.MaxSeedDrop", clampInt(seeds));
 		this.getConfig().set("SnowBiome.ExhaustionMultiplier", clampInt(multi));
 		this.getConfig().set("System.DebugMessages", deb);
 		this.getConfig().set("System.Version", v);
@@ -180,6 +185,15 @@ public class LethalSnow extends JavaPlugin{
 						if(isInteger(a2s(args, i + 1))){i++;}
 						rtn = true;
 					}
+					else if(arg.equals("seeds") || arg.equals("seed")){
+						maxSeedDrop = string2Int(a2s(args, i + 1));
+						this.getConfig().set("SnowMan.MaxSeedDrop", maxSeedDrop);
+						player.sendMessage("SnowMan max seeds drop set to " + maxSeedDrop);
+						logMessage(player.getDisplayName() + " Set snowman seed drop to, " + maxSeedDrop);
+						saveConfig();
+						if(isInteger(a2s(args, i + 1))){i++;}
+						rtn = true;
+					}
 					else if(arg.equals("exhaustion") || arg.equals("ex") || arg.equals("exhaustionmultiplier")){
 						ExhaustionMultiplier = string2Int(a2s(args, i + 1));
 						this.getConfig().set("SnowBiome.ExhaustionMultiplier", ExhaustionMultiplier);
@@ -222,7 +236,7 @@ public class LethalSnow extends JavaPlugin{
 					}
 					else if(arg.equals("damageplayer") || arg.equals("damageplayers")){
 						boolean b = tf(a2s(args, i + 1));
-						this.getConfig().set("SnowBall.damagePlayer", b);
+						this.getConfig().set("SnowBall.DamagePlayer", b);
 						HURT_PLAYER = b;
 						if(b){
 							player.sendMessage("Snow balls will damage players.");
@@ -236,7 +250,7 @@ public class LethalSnow extends JavaPlugin{
 					}
 					else if(arg.equals("damagemob") || arg.equals("damagemobs")){
 						boolean b = tf(a2s(args, i + 1));
-						this.getConfig().set("SnowBall.damageMobs", b);
+						this.getConfig().set("SnowBall.DamageMobs", b);
 						HURT_MOBS = b;
 						if(b){
 							player.sendMessage("Snow balls will damage mobs.");
