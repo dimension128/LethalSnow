@@ -1,4 +1,17 @@
-This plugin allows snowballs to do a configurable amount of damage. Either a random amount between two values or a direct static amount.
-You can configure many values in the plugin.yml file that this plugin generates for your server.
-However, all/most values are modifiable via in-game commands.
-Ill put that info here later.
+#This plugin allows snowballs to do a configurable amount of damage. Either a random amount between two values or a direct static amount.
+#You can configure many values in the plugin.yml file that this plugin generates for your server.
+#However, all/most values are modifiable via in-game commands.
+
+SnowBall: # Snowball config options
+  DamageMin: 10 # Min damage a snowball will do.
+  DamageMax: 20 # Max damage (You can set these two the same if you want static damage)
+  DamageChance: 90 # The chance (0-100%) that a snowball will do damage at all.
+  DamagePlayer: true # Can a snowball damage players?
+  DamageMobs: true # Can a snowball damage mobs?
+SnowMan: # 
+  MaxSeedDrop: 20 # How many seeds can a snowman drop on death? This will be random up to this number.
+SnowBiome: #
+  ExhaustionMultiplier: 50 # A setting of around 30 is good imho. 100 is the max, and will cause people to get hungry pretty quickly.
+System: #
+  DebugMessages: false
+  Version: '0.54'
