@@ -1,5 +1,5 @@
 name: LethalSnow
-version: 0.50
+version: 0.54
 description: Changes snowball damage, and can add more exhaustion while in snow biomes.
 main: com.foocraft.LeathalSnow.LethalSnow
 author: LordJason
@@ -11,8 +11,11 @@ commands:
     description: Lethalsnow primary command.
     aliases: [lethalsnow]
     permission: lethalsnow.use
-    usage: "Usage\n------------------\n/<command> (min/max/chance/exhaustion) (0-100)\n/<command> (damageplayer/damagemob) (true/false)\n/<command> reload\n/<command> biome\n------------------"
+    usage: "Usage\n------------------\n/<command> (min/max/chance/exhaustion/seeds) (0-100)\n/<command> (damageplayer/damagemob) (true/false)\n/<command> reload\n/<command> biome\n------------------"
 permissions:
     lethalsnow.use:
         description: allows usage of the lethalsnow command.
+        default: op
+    lethalsnow.exhaustion.exempt:
+        description: People with this permission won't have their exhaustion messed with by this plugin.
         default: op
