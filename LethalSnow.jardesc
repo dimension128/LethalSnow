@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <jardesc>
-    <jar path="LethalSnow/JarFile/LethalSnow.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/LethalSnow/LethalSnowDESC.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <jar path="D:/repo/bukkit/plugins/LethalSnow.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/LethalSnow/LethalSnow.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
     <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
@@ -12,8 +12,9 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
         <file path="/LethalSnow/.classpath"/>
+        <file path="/LethalSnow/LethalSnowDESC.jardesc"/>
         <file path="/LethalSnow/.project"/>
-        <javaElement handleIdentifier="=LethalSnow/src"/>
         <file path="/LethalSnow/LethalSnow_README"/>
+        <javaElement handleIdentifier="=LethalSnow/src"/>
     </selectedElements>
 </jardesc>
